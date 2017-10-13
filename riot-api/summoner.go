@@ -1,11 +1,6 @@
 package riot_api
 
-import (
-	"net/http"
-	"strings"
-	"encoding/json"
-	"fmt"
-)
+import "encoding/json"
 
 type Summoner struct {
 	Id int				`json: "id"`
@@ -16,13 +11,9 @@ type Summoner struct {
 	SummonerLevel int	`json: "summonerLevel"`
 }
 
-func GetSummoner(w http.ResponseWriter, r *http.Request) {
-	id := strings.TrimPrefix(r.URL.Path, "/summoner/")
-	result := getApiResult("euw1", "summoner/v3/summoners/by-name/" + id)
-
+func GetSummoner(region, name string) Summoner {
+	res := getApiResult(region, "summoner/v3/summoners/by-name/" + name)
 	summoner := Summoner{}
-	json.Unmarshal([]byte(result), &summoner)
-	fmt.Println("Summoner ID:", summoner.Name)
-
-	w.Write([]byte(result))
+	json.Unmarshal([]byte(res), &summoner)
+	return summoner
 }

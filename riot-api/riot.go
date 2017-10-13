@@ -5,9 +5,9 @@ import (
 	"io/ioutil"
 )
 
-var key = "" // Riot Games API Key
+const key = "" // Riot Games API Key
 
-func apiRequest(w http.ResponseWriter, region string, endpoint string) {
+func apiRequest(w http.ResponseWriter, region, endpoint string) {
 	result := getApiResult(region, endpoint)
 	if result == "" {
 		w.WriteHeader(http.StatusNotFound)
@@ -16,7 +16,7 @@ func apiRequest(w http.ResponseWriter, region string, endpoint string) {
 	w.Write([]byte(result))
 }
 
-func getApiResult(region string, endpoint string) string {
+func getApiResult(region, endpoint string) string {
 	url := "https://" + region + ".api.riotgames.com/lol/" + endpoint
 
 	req, err := http.NewRequest("GET", url, nil)

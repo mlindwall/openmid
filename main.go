@@ -2,11 +2,11 @@ package main
 
 import (
 	"net/http"
-	"github.com/mlindwall/openmid-api/riot-api"
+	"github.com/mlindwall/openmid-api/openmid-api"
 )
 
 func main() {
-	http.HandleFunc("/summoner/", riot_api.GetSummoner)
+	http.HandleFunc("/summoner/", openmid_api.GetProfile)
 	http.HandleFunc("/favicon.ico", disregard)
 	http.ListenAndServe(":8080", nil)
 }
